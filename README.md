@@ -21,7 +21,13 @@ npm install
 ```bash
 npm start
 ```
-The API starts on `http://localhost:${PORT}` (default 3000), serves swagger docs at `/api/documentation`, and the AdminJS panel at its configured root path.
+The API starts on `http://localhost:${PORT}` (default 8585), serves swagger docs at `/api/documentation`, and the AdminJS panel at its configured root path.
+
+## Run with PM2
+```bash
+pm2 start server.js --name trucking-desk
+pm2 logs trucking-desk
+```
 
 ## Deployment Notes
 - Regenerate a production `.env` with secure secrets.
