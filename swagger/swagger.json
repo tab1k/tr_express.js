@@ -1,0 +1,2506 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "API new",
+    "description": "API for managing system",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://trucking-desk.kz/api"
+    },
+    {
+      "url": "http://localhost:3027/api"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Основные",
+      "description": "API основные"
+    },
+    {
+      "name": "Авторизация",
+      "description": "API авторизации"
+    },
+    {
+      "name": "Профиль",
+      "description": "API для редактирование профиля (все через Access Token)"
+    },
+    {
+      "name": "Статичные API",
+      "description": "API для страниц"
+    }
+  ],
+  "paths": {
+    "/profile/add-good": {
+      "post": {
+        "summary": "Добавление груза в избранные",
+        "tags": [
+          "Основные"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "good_id": {
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "good_id"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Ошибка сервера",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/profile/delete-good/{id}": {
+      "delete": {
+        "summary": "Удаление груза из избранных",
+        "tags": [
+          "Основные"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Отправить именно good_id",
+            "type": "integer",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/profile/add-transport": {
+      "post": {
+        "summary": "Добавление машины в избранные",
+        "tags": [
+          "Основные"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "transport_id": {
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "transport_id"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Ошибка сервера",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/profile/delete-transport/{id}": {
+      "delete": {
+        "summary": "Удаление машины из избранных",
+        "tags": [
+          "Основные"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Отправить именно transport_id",
+            "type": "integer",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/goods": {
+      "post": {
+        "summary": "Добавление груза",
+        "tags": [
+          "Основные"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "points[]": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "description": "ID городов надо отправить",
+                      "properties": {
+                        "city_id": {
+                          "type": "integer"
+                        },
+                        "radius_id": {
+                          "type": "integer"
+                        },
+                        "type": {
+                          "type": "string",
+                          "description": "'loading' или 'unloading'"
+                        }
+                      }
+                    }
+                  },
+                  "type_car_ids[]": {
+                    "type": "array",
+                    "items": {
+                      "type": "integer",
+                      "description": "ID из справочника type_cars"
+                    }
+                  },
+                  "weight": {
+                    "type": "integer",
+                    "format": "float"
+                  },
+                  "volume": {
+                    "type": "integer",
+                    "format": "float"
+                  },
+                  "transportation_start": {
+                    "type": "string",
+                    "format": "date"
+                  },
+                  "transportation_day": {
+                    "type": "integer"
+                  },
+                  "character": {
+                    "type": "string"
+                  },
+                  "shipment_id": {
+                    "type": "integer"
+                  },
+                  "note": {
+                    "type": "string"
+                  },
+                  "fio": {
+                    "type": "string"
+                  },
+                  "phone": {
+                    "type": "string"
+                  },
+                  "type_payment_id": {
+                    "type": "integer"
+                  },
+                  "sum": {
+                    "type": "integer",
+                    "format": "float"
+                  },
+                  "currency_id": {
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "weight",
+                  "volume",
+                  "transportation_start",
+                  "transportation_day",
+                  "character",
+                  "shipment_id",
+                  "note",
+                  "type_payment_id",
+                  "sum",
+                  "currency_id"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Ошибка сервера",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "summary": "Мои грузы",
+        "tags": [
+          "Основные"
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Useful"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/goods/{id}": {
+      "get": {
+        "summary": "Мой груз по ID",
+        "tags": [
+          "Основные"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "type": "integer",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "$ref": "#/components/schemas/UsefulGet"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Редактирование груза",
+        "tags": [
+          "Основные"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "type": "integer",
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "points[]": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "description": "ID городов надо отправить",
+                      "properties": {
+                        "city_id": {
+                          "type": "integer"
+                        },
+                        "radius_id": {
+                          "type": "integer"
+                        },
+                        "type": {
+                          "type": "string",
+                          "description": "'loading' или 'unloading'"
+                        }
+                      }
+                    }
+                  },
+                  "type_car_ids[]": {
+                    "type": "array",
+                    "items": {
+                      "type": "integer",
+                      "description": "ID из справочника type_cars"
+                    }
+                  },
+                  "weight": {
+                    "type": "integer",
+                    "format": "float"
+                  },
+                  "volume": {
+                    "type": "integer",
+                    "format": "float"
+                  },
+                  "transportation_start": {
+                    "type": "string",
+                    "format": "date"
+                  },
+                  "transportation_day": {
+                    "type": "integer"
+                  },
+                  "character": {
+                    "type": "string"
+                  },
+                  "shipment_id": {
+                    "type": "integer"
+                  },
+                  "note": {
+                    "type": "string"
+                  },
+                  "fio": {
+                    "type": "string"
+                  },
+                  "phone": {
+                    "type": "string"
+                  },
+                  "type_payment_id": {
+                    "type": "integer"
+                  },
+                  "sum": {
+                    "type": "integer",
+                    "format": "float"
+                  },
+                  "currency_id": {
+                    "type": "integer"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Ошибка сервера",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Удаление груза",
+        "tags": [
+          "Основные"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "type": "integer",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "$ref": "#/components/schemas/UsefulGet"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/goods/search": {
+      "post": {
+        "summary": "Поиск груза",
+        "tags": [
+          "Основные"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "points[]": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "description": "ID городов надо отправить",
+                      "properties": {
+                        "city_id": {
+                          "type": "integer"
+                        },
+                        "radius_id": {
+                          "type": "integer"
+                        },
+                        "type": {
+                          "type": "string",
+                          "description": "'loading' или 'unloading'"
+                        }
+                      }
+                    }
+                  },
+                  "type_car_ids[]": {
+                    "type": "array",
+                    "items": {
+                      "type": "integer",
+                      "description": "ID из справочника type_cars"
+                    }
+                  },
+                  "from_weight": {
+                    "type": "integer",
+                    "format": "float"
+                  },
+                  "to_weight": {
+                    "type": "integer",
+                    "format": "float"
+                  },
+                  "from_volume": {
+                    "type": "integer",
+                    "format": "float"
+                  },
+                  "to_volume": {
+                    "type": "integer",
+                    "format": "float"
+                  },
+                  "transportation_start": {
+                    "type": "string",
+                    "format": "date"
+                  },
+                  "transportation_day": {
+                    "type": "integer"
+                  },
+                  "shipment_id": {
+                    "type": "integer"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "$ref": "#/components/schemas/UsefulGet"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/transport": {
+      "post": {
+        "summary": "Добавление машины",
+        "tags": [
+          "Основные"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "points[]": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "description": "ID городов надо отправить",
+                      "properties": {
+                        "city_id": {
+                          "type": "integer"
+                        },
+                        "radius_id": {
+                          "type": "integer"
+                        },
+                        "type": {
+                          "type": "string",
+                          "description": "'loading' или 'unloading'"
+                        }
+                      }
+                    }
+                  },
+                  "shipment_id": {
+                    "type": "integer"
+                  },
+                  "type_car_ids[]": {
+                    "type": "array",
+                    "items": {
+                      "type": "integer",
+                      "description": "ID из справочника type_cars"
+                    }
+                  },
+                  "weight": {
+                    "type": "integer",
+                    "format": "float"
+                  },
+                  "volume": {
+                    "type": "integer",
+                    "format": "float"
+                  },
+                  "fio": {
+                    "type": "string"
+                  },
+                  "phone": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "comment": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "shipment_id",
+                  "weight",
+                  "volume",
+                  "comment"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Ошибка сервера",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "summary": "Мои машины",
+        "tags": [
+          "Основные"
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Useful"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/transport/{id}": {
+      "get": {
+        "summary": "Моя машина по ID",
+        "tags": [
+          "Основные"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "type": "integer",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "$ref": "#/components/schemas/UsefulGet"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Редактирование машины",
+        "tags": [
+          "Основные"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "type": "integer",
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "points[]": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "description": "ID города и ID радиуса отправить",
+                      "properties": {
+                        "city_id": {
+                          "type": "integer"
+                        },
+                        "radius_id": {
+                          "type": "integer"
+                        },
+                        "type": {
+                          "type": "string",
+                          "description": "'loading' или 'unloading'"
+                        }
+                      }
+                    }
+                  },
+                  "shipment_id": {
+                    "type": "integer"
+                  },
+                  "type_car_ids[]": {
+                    "type": "array",
+                    "items": {
+                      "type": "integer",
+                      "description": "ID из справочника type_cars"
+                    }
+                  },
+                  "weight": {
+                    "type": "integer",
+                    "format": "float"
+                  },
+                  "volume": {
+                    "type": "integer",
+                    "format": "float"
+                  },
+                  "fio": {
+                    "type": "string"
+                  },
+                  "phone": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "comment": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Ошибка сервера",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Удаление машины",
+        "tags": [
+          "Основные"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "type": "integer",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "$ref": "#/components/schemas/UsefulGet"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/transport/search": {
+      "post": {
+        "summary": "Поиск машины",
+        "tags": [
+          "Основные"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "points[]": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "description": "ID городов надо отправить",
+                      "properties": {
+                        "city_id": {
+                          "type": "integer"
+                        },
+                        "radius_id": {
+                          "type": "integer"
+                        },
+                        "type": {
+                          "type": "string",
+                          "description": "'loading' или 'unloading'"
+                        }
+                      }
+                    }
+                  },
+                  "type_car_ids[]": {
+                    "type": "array",
+                    "items": {
+                      "type": "integer",
+                      "description": "ID из справочника type_cars"
+                    }
+                  },
+                  "shipment_id": {
+                    "type": "integer"
+                  },
+                  "weight": {
+                    "type": "integer",
+                    "format": "float"
+                  },
+                  "volume": {
+                    "type": "integer",
+                    "format": "float"
+                  },
+                  "from_weight": {
+                    "description": "ПОКА НЕ ПОДКЛЮЧАТ",
+                    "type": "integer",
+                    "format": "float"
+                  },
+                  "to_weight": {
+                    "description": "ПОКА НЕ ПОДКЛЮЧАТ",
+                    "type": "integer",
+                    "format": "float"
+                  },
+                  "from_volume": {
+                    "description": "ПОКА НЕ ПОДКЛЮЧАТ",
+                    "type": "integer",
+                    "format": "float"
+                  },
+                  "to_volume": {
+                    "description": "ПОКА НЕ ПОДКЛЮЧАТ",
+                    "type": "integer",
+                    "format": "float"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "$ref": "#/components/schemas/UsefulGet"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/calculation/distance": {
+      "post": {
+        "summary": "Расчет расстояния",
+        "tags": [
+          "Основные"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "start_point": {
+                    "type": "integer"
+                  },
+                  "end_point": {
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "start_point",
+                  "end_point"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Ошибка сервера",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/calculation/price": {
+      "post": {
+        "summary": "Расчет цен",
+        "tags": [
+          "Основные"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "start_point": {
+                    "type": "integer"
+                  },
+                  "end_point": {
+                    "type": "integer"
+                  },
+                  "dimension": {
+                    "type": "string"
+                  },
+                  "value": {
+                    "type": "integer",
+                    "format": "float"
+                  }
+                },
+                "required": [
+                  "start_point",
+                  "end_point",
+                  "dimension",
+                  "value"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Ошибка сервера",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/reviews": {
+      "post": {
+        "summary": "Оставление отзыва",
+        "tags": [
+          "Основные"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "goods_id": {
+                    "type": "integer",
+                    "description": "Отзыв к грузам"
+                  },
+                  "transport_id": {
+                    "type": "integer",
+                    "description": "Отзыв к машинам, ПОКА НЕ ПОДКЛЮЧАТЬ"
+                  },
+                  "rating": {
+                    "type": "integer",
+                    "format": "float"
+                  },
+                  "user": {
+                    "type": "string",
+                    "description": "phone or email"
+                  },
+                  "comment": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "user",
+                  "comment"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Ошибка сервера",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/register": {
+      "post": {
+        "summary": "Регистрация пользователя",
+        "tags": [
+          "Авторизация"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  },
+                  "referral": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "name",
+                  "email",
+                  "password"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "integer"
+                    },
+                    "surname": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "phone": {
+                      "type": "string"
+                    },
+                    "email": {
+                      "type": "string"
+                    },
+                    "image": {
+                      "type": "string"
+                    },
+                    "company_id": {
+                      "type": "integer"
+                    },
+                    "locale": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "integer"
+                        },
+                        "name": {
+                          "type": "integer"
+                        }
+                      }
+                    },
+                    "role": {
+                      "type": "integer"
+                    },
+                    "accessToken": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Номер уже зарегистрирован",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Такой email уже существует",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Неверный код",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Ошибка сервера",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/resend-sms": {
+      "post": {
+        "summary": "Отправка сообщений к пользователю",
+        "tags": [
+          "Авторизация"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "email"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "boolean"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Такого пользователя не существует!",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Ошибка сервера",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/check-sms": {
+      "post": {
+        "summary": "Проверка смс и подтверждение",
+        "tags": [
+          "Авторизация"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string"
+                  },
+                  "code": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "email",
+                  "code"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "boolean"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Email не существует!",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Ошибка сервера",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/login": {
+      "post": {
+        "summary": "Вход пользователя",
+        "tags": [
+          "Авторизация"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "description": "Email or phone",
+                    "type": "string"
+                  },
+                  "password": {
+                    "description": "Пароль минимум из 6 символов",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "email",
+                  "password"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The login user",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "integer"
+                    },
+                    "surname": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "phone": {
+                      "type": "string"
+                    },
+                    "email": {
+                      "type": "string"
+                    },
+                    "image": {
+                      "type": "string"
+                    },
+                    "company_id": {
+                      "type": "integer"
+                    },
+                    "locale": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "integer"
+                        },
+                        "name": {
+                          "type": "integer"
+                        }
+                      }
+                    },
+                    "role": {
+                      "type": "integer"
+                    },
+                    "accessToken": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Аккаунт не найден",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Неверные данные пользователя",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Ошибка сервера",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/restore": {
+      "post": {
+        "summary": "Задать новый пароль для пользователя",
+        "tags": [
+          "Авторизация"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string"
+                  },
+                  "code": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "email",
+                  "code",
+                  "password"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Ошибка при удаление",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/recovery": {
+      "post": {
+        "summary": "Восстановление аккаунта",
+        "tags": [
+          "Авторизация"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "email"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Ошибка при удаление",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/delete": {
+      "delete": {
+        "summary": "Удаление аккаунта",
+        "tags": [
+          "Авторизация"
+        ],
+        "responses": {
+          "200": {
+            "description": "The logout user",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Users"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/logout": {
+      "get": {
+        "summary": "Выход из аккаунта пользователя",
+        "tags": [
+          "Авторизация"
+        ],
+        "security": {
+          "bearerAuth": []
+        },
+        "responses": {
+          "401": {
+            "description": "The logout user",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/profile/me": {
+      "get": {
+        "summary": "Получение данных пользователя по access_token",
+        "tags": [
+          "Профиль"
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Users"
+                }
+              }
+            }
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "default": "Нет доступа!"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Ошибка сервера",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "default": "Internal Server Error"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/profile/become-driver": {
+      "post": {
+        "summary": "Стать водителем",
+        "tags": [
+          "Профиль"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "iin": {
+                    "type": "string"
+                  },
+                  "id_card": {
+                    "type": "string",
+                    "format": "binary"
+                  },
+                  "driver_license": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Users"
+                }
+              }
+            }
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "default": "Ошибка валидации!!"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "default": "Internal Server Error"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/profile/edit": {
+      "put": {
+        "summary": "Редактирование данных пользователя",
+        "tags": [
+          "Профиль"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "phone": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "iin": {
+                    "type": "string"
+                  },
+                  "image": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Users"
+                }
+              }
+            }
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "default": "Ошибка валидации!!"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "default": "Internal Server Error"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/profile/change-password": {
+      "put": {
+        "summary": "Сменить пароль",
+        "tags": [
+          "Профиль"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "current_password": {
+                    "type": "string"
+                  },
+                  "new_password": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "current_password",
+                  "new_password"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "default": "Пароль успешно изменен!"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "default": "Не удалось сменить пароль!"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/dicts": {
+      "get": {
+        "summary": "API - Справочники (отправить в формате type_activity, country, type_car, type_payment, shipment, currency, radius)",
+        "tags": [
+          "Статичные API"
+        ],
+        "parameters": [
+          {
+            "name": "lang",
+            "in": "query",
+            "type": "string",
+            "default": "ru",
+            "required": false
+          },
+          {
+            "description": "type_activity - вид деятельность, type_car - Тип машины, type_payment - Тип оплаты, shipment - Погрузка, country - Страны с городами, currency - Валюта, radius - Радиусы",
+            "name": "list",
+            "in": "query",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Useful"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/search/city": {
+      "get": {
+        "summary": "Поиск городов",
+        "tags": [
+          "Статичные API"
+        ],
+        "parameters": [
+          {
+            "name": "lang",
+            "in": "query",
+            "type": "string",
+            "default": "ru",
+            "required": false
+          },
+          {
+            "name": "text",
+            "in": "query",
+            "type": "string",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Useful"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/useful": {
+      "get": {
+        "summary": "Страница 'Полезное'",
+        "tags": [
+          "Статичные API"
+        ],
+        "parameters": [
+          {
+            "name": "lang",
+            "in": "query",
+            "type": "string",
+            "default": "ru",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Useful"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/useful/{slug}": {
+      "get": {
+        "summary": "Получение контента 'Полезное' по slug",
+        "tags": [
+          "Статичные API"
+        ],
+        "parameters": [
+          {
+            "name": "slug",
+            "in": "path",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "lang",
+            "in": "query",
+            "type": "string",
+            "default": "ru",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "$ref": "#/components/schemas/UsefulGet"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Useful": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "title": {
+            "type": "string"
+          },
+          "slug": {
+            "type": "string"
+          }
+        }
+      },
+      "UsefulGet": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "title": {
+            "type": "string"
+          },
+          "content": {
+            "type": "string"
+          }
+        }
+      },
+      "Users": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  },
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ]
+}

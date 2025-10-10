@@ -1,0 +1,215 @@
+a {
+ color: #252525;
+ text-decoration: none;
+}
+
+.KPyQs {
+    box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 0 0px 20px 20px;
+}
+
+.bQXHBf {
+ max-width: 70%;
+}
+.jrJpSp {
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+ justify-content: center;
+ gap: 0px;
+}
+.kibsLu {
+ display: none;
+}
+.iDgscB, .jIjpiP {
+ text-align: center;
+}
+.KPyQs H2,
+.KPyQs .hgdyTA {
+ font-weight: 500 !important;
+ color: white;
+}
+
+.cRTfVS {
+ background-color: #6187FF !important;
+}
+
+.jcBFuf {
+    border-color: #fff !important;
+}
+
+.css-18f5zc6-menu {
+ background-color: #158394 !important;
+}
+
+button:hover {
+ cursor: pointer;
+}
+
+/* svg {
+ width: 100% !important;
+} */
+.buOzpT, .dnZKfp {
+ display: none;
+}
+
+.kZqEyG {
+ height: 100%;
+ display: flex;
+ flex-direction: column;
+ justify-content: center;
+ gap: 10px;
+ text-align: center;
+}
+
+.cMUlrr {
+ display: flex;
+ align-items: center;
+ flex-direction: column;
+ justify-content: center;
+}
+
+.cMUlrr div {
+ text-align: center;
+}
+
+.tab-list {
+ border-bottom: 1px solid #ccc;
+ padding-left: 0;
+}
+
+.tab-list-item {
+ display: inline-block;
+ list-style: none;
+ margin-bottom: -1px;
+ padding: 0.5rem 0.75rem;
+}
+
+.tab-list-active {
+ background-color: white;
+ border: solid #ccc;
+ border-width: 1px 1px 0 1px;
+}
+
+/* width */
+::-webkit-scrollbar {
+ width: 3px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+ background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+ background: #252525;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+ background: #555;
+}
+
+@media screen and (max-width: 991.99px) {
+ .kNLtCS {
+  padding-left: 10px;
+ }
+ .KPyQs {
+  padding-top: 32px !important;
+ }
+ .jLokja {
+  position: relative !important;
+  right: 0 !important;
+  margin-bottom: 20px;
+ }
+ .fqhUxn {
+  margin-bottom: 5px !important;
+ }
+}
+
+.cSQcqd {
+ font-size: 14px !important;
+}
+.gxOTWi {
+ font-size: 15px !important;
+}
+.KPquJ {
+ font-size: 12px !important;
+}
+.kMenDE {
+ font-size: 13px !important;
+}
+.iLeiaC {
+ position: relative;
+}
+
+.hmNclu {
+    max-width: 220px !important;
+}
+
+.gyEqVy {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.KPyQs {
+    background-color: #6187FF !important;
+}
+
+/* .adminjs_Drawer {
+    width: 700px !important;
+} */
+
+.buttonfile, .calendaritem {
+    border: 1px solid #CACACA;
+    padding: 5px 15px;
+    border-radius: 8px;
+    width: fit-content;
+}
+.izEXTw svg {
+    fill: white !important;
+}
+.kpmcfo {
+    border: 1px solid white !important;
+}
+.buttonfile:hover {
+    background: #157594;
+    color: white;
+}
+.react-datepicker {
+    border: 1px solid #CACACA !important;
+    border-radius: 8px !important;
+    box-shadow: 0px 2px 12px 0px #0000000F !important;
+}
+.react-datepicker__day-name {
+    color: #828282 !important;
+}
+.react-datepicker__day-name::first-letter {
+    text-transform: uppercase !important; /* Делаем первую букву заглавной */
+}
+.react-datepicker__navigation--next {
+    border-left-color: #828282 !important;
+}
+.react-datepicker__navigation--previous {
+    border-right-color: #828282 !important;
+}
+.react-datepicker__current-month {
+    font-weight: 600 !important;
+}
+.react-datepicker__day--excluded {
+    background: #4F4F4F26 !important;
+    text-decoration: line-through !important;
+    color: #000000 !important;
+}
+.react-datepicker__current-month::first-letter {
+    text-transform: uppercase !important; /* Делаем первую букву заглавной */
+}
+@media screen and (max-width: 992px) {
+    .mbdo {
+     flex-direction: column !important;
+    }
+}
